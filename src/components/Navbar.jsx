@@ -1,10 +1,68 @@
 
 import { useState } from 'react';
-import { Menu, Search, ShoppingBag, Truck, User, X } from 'lucide-react';
+import { Menu, Search, ShoppingBag, Truck, User, X, ChevronDown, ChevronRight } from 'lucide-react';
 import logo from '../assets/logo/logo.jpg';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [mobileOpenSubMenu, setMobileOpenSubMenu] = useState(null); // Track open index for mobile accordion
+
+    const menuItems = [
+        {
+            label: "Birthday",
+            dropdown: [
+                "Birthday Gifts For Boyfriend", "Birthday Gifts For Husband", "Birthday Gifts For Girlfriend",
+                "Birthday Gifts For Wife", "Birthday Gifts For Sister", "Birthday Gifts For Brother",
+                "Birthday Gifts For Female Friend", "Birthday Gifts For Male Friend", "Birthday Gifts For Mother",
+                "Birthday Gifts For Father"
+            ]
+        },
+        {
+            label: "Anniversary",
+            dropdown: [
+                "Anniversary Gifts For Wife", "Anniversary Gifts For Husband", "Anniversary Gifts For Couples"
+            ]
+        },
+        {
+            label: "Wedding",
+            dropdown: [
+                "Newly Wed Couple Gifts", "Bridesmaid Gifts", "Wedding Invitation Hampers",
+                "Bride To Be Gifts", "Groom To Be Gifts", "Groomsmen Gifts"
+            ]
+        },
+        {
+            label: "Personalized",
+            dropdown: [
+                {
+                    label: "Personalized Drinkware",
+                    sub_menu: [
+                        "Personalized Mugs", "Personalized Couple Mugs", "Personalized Tumblers", "Personalized Bottles"
+                    ]
+                },
+                "Personalized Frames", "Personalized Travel Accessories"
+            ]
+        },
+        {
+            label: "By Occasion",
+            dropdown: [
+                {
+                    label: "Valentines Day Gifts",
+                    sub_menu: ["for Husband / Boyfriend", "for Wife / Girlfriend"]
+                }
+            ]
+        },
+        {
+            label: "Relationship",
+            dropdown: [
+                "Wife / Girlfriend", "Husband / Boyfriend", "Friend (Men)", "Friend (Women)",
+                "Sister", "Mother", "Gifts for Brother", "Father", "Daughter", "Kids", "Son"
+            ]
+        }
+    ];
+
+    const toggleMobileSubMenu = (index) => {
+        setMobileOpenSubMenu(mobileOpenSubMenu === index ? null : index);
+    };
 
     return (
         <>
@@ -97,27 +155,105 @@ const Navbar = () => {
                 </div>
 
                 {/* Navigation Bar (Desktop) */}
-                <nav className="hidden lg:block bg-brand border-t border-white/20">
+                <nav className="hidden lg:block bg-white border-t border-gray-100">
                     <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-                        <ul className="flex items-center justify-between text-white text-sm font-medium">
-                            {['Corporate Gifting', 'Make your own Hamper', 'Birth Day', 'Anniversary', 'Weddings', 'Personalized', 'By Occasion', 'Relationship'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="block py-3 hover:text-white/80 hover:bg-white/10 px-4 transition-colors">
-                                        {item}
+                        <ul className="flex items-center justify-center gap-6 xl:gap-[60px] text-[#7D7D7D] text-sm font-medium">
+                            {menuItems.map((item, index) => (
+                                <li key={index} className="group relative">
+                                    <a
+                                        href="#"
+                                        className="flex items-center gap-1 py-4 hover:text-[#D6737B] transition-colors"
+                                    >
+                                        {item.label}
+                                        {item.dropdown && <ChevronDown className="w-4 h-4" />}
                                     </a>
+
+                                    {/* Dropdown Menu */}
+                                    {item.dropdown && (
+                                        <div className="absolute top-full left-0 w-64 bg-white shadow-lg rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border-t-2 border-[#D6737B]">
+                                            <ul className="py-2">
+                                                {item.dropdown.map((subItem, subIndex) => (
+                                                    <li key={subIndex} className="relative group/sub">
+                                                        {typeof subItem === 'string' ? (
+                                                            <a href="#" className="block px-4 py-2 hover:bg-gray-50 hover:text-[#D6737B] transition-colors">
+                                                                {subItem}
+                                                            </a>
+                                                        ) : (
+                                                            <div className="relative">
+                                                                <a href="#" className="flex items-center justify-between px-4 py-2 hover:bg-gray-50 hover:text-[#D6737B] transition-colors">
+                                                                    {subItem.label}
+                                                                    <ChevronRight className="w-4 h-4" />
+                                                                </a>
+                                                                {/* Sub-Dropdown Menu */}
+                                                                {subItem.sub_menu && (
+                                                                    <div className="absolute top-0 left-full w-56 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 transform translate-x-2 group-hover/sub:translate-x-0 ml-1 border-l-2 border-[#D6737B]">
+                                                                        <ul className="py-2">
+                                                                            {subItem.sub_menu.map((nestedItem, nestedIndex) => (
+                                                                                <li key={nestedIndex}>
+                                                                                    <a href="#" className="block px-4 py-2 hover:bg-gray-50 hover:text-[#D6737B] transition-colors">
+                                                                                        {nestedItem}
+                                                                                    </a>
+                                                                                </li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </li>
                             ))}
                         </ul>
                     </div>
                 </nav>
 
-                {/* Mobile Menu (Hidden by default) */}
+                {/* Mobile Menu (Drawer) */}
                 {isMobileMenuOpen && (
-                    <div className="lg:hidden border-t">
-                        <ul className="flex flex-col bg-white text-gray-700 font-medium">
-                            {['Corporate Gifting', 'Make your own Hamper', 'Birth Day', 'Anniversary', 'Weddings', 'Personalized', 'By Occasion', 'Relationship'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="block py-3 px-6 border-b hover:bg-gray-50">{item}</a>
+                    <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl max-h-[calc(100vh-80px)] overflow-y-auto">
+                        <ul className="flex flex-col text-gray-700 font-medium">
+                            {menuItems.map((item, index) => (
+                                <li key={index} className="border-b border-gray-50">
+                                    <div
+                                        className="flex items-center justify-between py-3 px-6 hover:bg-gray-50 cursor-pointer"
+                                        onClick={() => toggleMobileSubMenu(index)}
+                                    >
+                                        <a href="#" className="block flex-1">{item.label}</a>
+                                        {item.dropdown && (
+                                            <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${mobileOpenSubMenu === index ? 'rotate-180' : ''}`} />
+                                        )}
+                                    </div>
+
+                                    {/* Mobile Dropdown */}
+                                    {item.dropdown && mobileOpenSubMenu === index && (
+                                        <div className="bg-gray-50 px-6 pb-2">
+                                            <ul className="border-l-2 border-[#D6737B] pl-4">
+                                                {item.dropdown.map((subItem, subIndex) => (
+                                                    <li key={subIndex} className="py-2">
+                                                        {typeof subItem === 'string' ? (
+                                                            <a href="#" className="block text-sm text-gray-600 hover:text-[#D6737B]">{subItem}</a>
+                                                        ) : (
+                                                            <div>
+                                                                <span className="block text-sm font-medium text-gray-800 mb-1">{subItem.label}</span>
+                                                                {subItem.sub_menu && (
+                                                                    <ul className="pl-2 space-y-2 mt-1">
+                                                                        {subItem.sub_menu.map((nestedItem, nestedIndex) => (
+                                                                            <li key={nestedIndex}>
+                                                                                <a href="#" className="block text-xs text-gray-500 hover:text-[#D6737B]">{nestedItem}</a>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </li>
                             ))}
                         </ul>

@@ -11,23 +11,46 @@ import GiftGallery from './components/GiftGallery'
 import CustomerFeedback from './components/CustomerFeedback'
 import TrustBar from './components/TrustBar'
 import Footer from './components/Footer'
+import ScrollReveal from './components/ScrollReveal'
 import './App.css'
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <HeroCarousel />
-      <ShopByOccasion />
-      <MakeYourOwnHamper />
-      <WeddingCollection />
-      <BestsellingHampers />
-      <BestsellingForHer />
-      <BestsellingForHim />
-      <MakeYourOwnHamperCTA />
-      <GiftGallery />
-      <CustomerFeedback />
-      <TrustBar />
+      <ScrollReveal className="w-full">
+        <HeroCarousel />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <ShopByOccasion />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <MakeYourOwnHamper />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <WeddingCollection />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <BestsellingHampers />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <BestsellingForHer />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <BestsellingForHim />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <MakeYourOwnHamperCTA />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <GiftGallery />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <CustomerFeedback />
+      </ScrollReveal>
+      <ScrollReveal className="w-full">
+        <TrustBar />
+      </ScrollReveal>
       <Footer />
     </div>
   )
