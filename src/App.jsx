@@ -2,6 +2,15 @@ import Navbar from './components/Navbar'
 import HeroCarousel from './components/HeroCarousel'
 import ShopByOccasion from './components/ShopByOccasion'
 import MakeYourOwnHamper from './components/MakeYourOwnHamper'
+import WeddingCollection from './components/WeddingCollection'
+import BestsellingHampers from './components/BestsellingHampers'
+import BestsellingForHer from './components/BestsellingForHer'
+import BestsellingForHim from './components/BestsellingForHim'
+import MakeYourOwnHamperCTA from './components/MakeYourOwnHamperCTA'
+import GiftGallery from './components/GiftGallery'
+import CustomerFeedback from './components/CustomerFeedback'
+import TrustBar from './components/TrustBar'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -11,10 +20,15 @@ function App() {
       <HeroCarousel />
       <ShopByOccasion />
       <MakeYourOwnHamper />
-      <main className="max-w-[1440px] mx-auto px-4 md:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Welcome to GiftByDeesh</h1>
-        <p className="text-gray-600">Start building your luxe custom gift store here.</p>
-      </main>
+      <WeddingCollection />
+      <BestsellingHampers />
+      <BestsellingForHer />
+      <BestsellingForHim />
+      <MakeYourOwnHamperCTA />
+      <GiftGallery />
+      <CustomerFeedback />
+      <TrustBar />
+      <Footer />
     </div>
   )
 }
